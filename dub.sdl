@@ -1,0 +1,7 @@
+name "noteapp"
+description "A simple vibe.d server application."
+authors "Sylvain Pélissier"
+copyright "Copyright © 2016, Sylvain Pélissier"
+license "proprietary"
+dependency "vibe-d" version="~>0.7.26"
+versions "VibeDefaultMain"
