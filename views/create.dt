@@ -1,0 +1,20 @@
+doctype html
+head
+	title Note app - Create a new note
+	link(rel="stylesheet", type="text/css", href="note.css")
+	:javascript
+		function changeMethodToken(m) {
+			document.getElementById("note_form").method = m;
+		}
+body
+	form#note_form(action="/created")
+		p
+			label Topic
+			input(name="form_topic", type="text", required)
+		p
+			label Content
+			textarea(name="form_content")
+		p
+			button(type="reset") Reset
+			button(type="submit", onclick="changeMethodToken('post')") Create (POST)
+			button(type="submit", onclick="changeMethodToken('get')") Create (GET)

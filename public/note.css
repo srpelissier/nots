@@ -1,0 +1,30 @@
+body {
+	font-size: 1em;
+	color: black;
+	background-color: white;
+	font-family: Arial;
+}
+
+header {
+	display: block;
+	font-size: 200%;
+	font-weight: bolder;
+	text-align: center;
+}
+
+footer {
+	clear: both;
+	display: block;
+	text-align: center;
+}
+
+nav {
+	display: block;
+	float: left;
+	width: 25%;
+}
+
+article {
+	display: block;
+	float: left;
+}

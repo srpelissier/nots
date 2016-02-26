@@ -1,0 +1,12 @@
+- import std.array : empty;
+doctype html
+head
+	title Note app - New note created
+	link(rel="stylesheet", type="text/css", href="note.css")
+body
+	p You created a new note with topic "#{topic}".
+	- if (content.empty)
+		p Content is empty
+	- else
+		p Content is "#{content}"
+	p Request method used: '#{reqmethod}'
