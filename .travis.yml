@@ -1,0 +1,3 @@
+language: d
+sudo: false
+script: dub test --combined
