@@ -32,6 +32,7 @@ shared static this()
 	settings.sslContext = createSSLContext(SSLContextKind.server);
 	settings.sslContext.useCertificateChainFile("cert.pem");
 	settings.sslContext.usePrivateKeyFile("key.pem");
+	settings.errorPageHandler = toDelegate(&errorPage);
 	listenHTTP(settings, router);
 
 	logInfo("Please open http://127.0.0.1:8080/ in your browser.");
@@ -90,6 +91,11 @@ void createNote(HTTPServerRequest req, HTTPServerResponse res)
 	noteStore.setNotes(req.session.id, allnotes);
 
 	res.redirect("/listnotes");
+}
+
+void errorPage(HTTPServerRequest req, HTTPServerResponse res, HTTPServerErrorInfo info)
+{
+	render!("error.dt", req, info)(res);
 }
 
 struct Note

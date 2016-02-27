@@ -1,0 +1,8 @@
+doctype html
+head
+	title Note app - An error occurred
+body
+	p An error occurred!
+	p The path requested: #{req.path}
+	p The code of the error: #{info.code}
+	p The text of the error: #{info.message}
