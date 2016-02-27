@@ -1,0 +1,7 @@
+doctype html
+head
+	title Note app
+	link(rel="stylesheet", type="text/css", href="/static/note.css")
+body
+	h1 Welcome to the Note app
+	p Please <a href="/listnotes">login</a> to view your notes.

@@ -2,9 +2,14 @@ import vibe.d;
 
 shared static this()
 {
-	auto router = new URLRouter;
+	auto fileServerSettings= new HTTPFileServerSettings;
+	fileServerSettings.serverPathPrefix = "/static";
 
-	router.get("/", &listNotes);
+	auto router = new URLRouter;
+	router.get("/", staticTemplate!"index.dt");
+	router.get("/static/*", serveStaticFiles("public/", fileServerSettings));
+	router.any("*", performBasicAuth("The Note app", toDelegate(&checkPassword)));
+	router.get("/listnotes", &listNotes);
 	router.get("/create", staticTemplate!"create.dt");
 	router.get("/note/create", &createNote);
 	router.post("/note/create", &createNote);
@@ -49,7 +54,7 @@ void createNote(HTTPServerRequest req, HTTPServerResponse res)
 
 	noteStore.setNotes(req.session.id, allnotes);
 
-	res.redirect("/");
+	res.redirect("/listnotes");
 }
 
 struct Note
@@ -85,4 +90,9 @@ private __gshared NoteStore noteStore;
 shared static this()
 {
 	noteStore = new NoteStore();
+}
+
+bool checkPassword(string user, string password)
+{
+	return user == "yourid" && password == "secret";
 }
