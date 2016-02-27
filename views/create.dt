@@ -5,9 +5,9 @@ head
 	:javascript
 		function changeMethodToken(m) {
 			document.getElementById("note_form").method = m;
-		}
+		};
 body
-	form#note_form(action="/created")
+	form#note_form(action="/note/create")
 		p
 			label Topic
 			input(name="form_topic", type="text", required)

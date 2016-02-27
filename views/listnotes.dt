@@ -1,0 +1,10 @@
+doctype html
+head
+	title Note app - Create a new note
+	link(rel="stylesheet", type="text/css", href="note.css")
+body
+	p Your current notes
+	- foreach (note; allnotes)
+		p #{note.topic}
+	a(href="create") Create a new note
+	a(href="logout") Terminate session
