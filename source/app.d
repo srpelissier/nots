@@ -2,13 +2,19 @@ import vibe.d;
 
 shared static this()
 {
+	auto authinfo = new DigestAuthInfo;
+	authinfo.realm = "The Note app";
+
 	auto fileServerSettings= new HTTPFileServerSettings;
 	fileServerSettings.serverPathPrefix = "/static";
 
 	auto router = new URLRouter;
 	router.get("/", staticTemplate!"index.dt");
 	router.get("/static/*", serveStaticFiles("public/", fileServerSettings));
-	router.any("*", performBasicAuth("The Note app", toDelegate(&checkPassword)));
+	// use for basic athentication
+	//router.any("*", performBasicAuth("The Note app", toDelegate(&checkPassword)));
+	// use for digest authentication
+	router.any("*", performDigestAuth(authinfo, toDelegate(&digestPassword)));
 	router.get("/listnotes", &listNotes);
 	router.get("/create", staticTemplate!"create.dt");
 	router.get("/note/create", &createNote);
@@ -92,7 +98,16 @@ shared static this()
 	noteStore = new NoteStore();
 }
 
+//use for basic authentication
 bool checkPassword(string user, string password)
 {
 	return user == "yourid" && password == "secret";
+}
+
+// use for digest authentication
+string digestPassword(string realm, string user)
+{
+	if (realm == "The Note app" && user == "yourid")
+		return createDigestPassword(realm, user, "secret");
+	return "";
 }
