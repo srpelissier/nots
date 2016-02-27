@@ -4,4 +4,15 @@ head
 	link(rel="stylesheet", type="text/css", href="/static/note.css")
 body
 	h1 Welcome to the Note app
-	p Please <a href="/listnotes">login</a> to view your notes.
+	form(method='get', action='/login')
+		fieldset
+			legend Please login to view your notes
+			p
+				label(for='username') User
+				input(name='username', type='text', required)
+			p
+				label(for='password') Password
+				input(name='password', type='password', required)
+			p
+				button(type='reset') Reset
+				button(type='submit') Login
